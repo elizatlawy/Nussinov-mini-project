@@ -5,11 +5,11 @@ def base_pair(i, j):
     pair = [seq[i], seq[j]]
 
     if pair == ['A', 'U'] or pair == ['U', 'A']:
-        return (1)
+        return 1
     elif pair == ['C', 'G'] or pair == ['G', 'C']:
-        return (1)
+        return 1
     else:
-        return (0)
+        return 0
 
 
 def score(seq, N):
@@ -27,7 +27,7 @@ def score(seq, N):
                 for k in range(i + 1, j):
                     tmp.append(s[i, k] + s[k + 1, j])
                     case4 = max(tmp)
-                    s[i, j] = max(case1, case2, case3, case4)
+                s[i, j] = max(case1, case2, case3, case4)
             else:
                 s[i, j] = 0
     return s
@@ -35,13 +35,13 @@ def score(seq, N):
 
 def traceback(s, seq, i, j, pair):
     if i < j:
-        if s[i, j] == s[i + 1, j - 1] + base_pair(i, j):
-            pair.append([i, j, str(seq[i]), str(seq[j])])
-            traceback(s, seq, i + 1, j - 1, pair)
-        elif s[i, j] == s[i + 1, j]:
+        if s[i, j] == s[i + 1, j]:
             traceback(s, seq, i + 1, j, pair)
         elif s[i, j] == s[i, j - 1]:
             traceback(s, seq, i, j - 1, pair)
+        elif s[i, j] == s[i + 1, j - 1] + base_pair(i, j):
+            pair.append([i, j, str(seq[i]), str(seq[j])])
+            traceback(s, seq, i + 1, j - 1, pair)
         else:
             for k in range(i + 1, j):
                 if s[i, j] == s[i, k] + s[k + 1, j]:
@@ -64,5 +64,7 @@ def run(seq):
 if __name__ == '__main__':
     seq = "GGGAAAUCC"
     s = np.zeros([len(seq), len(seq)])
-    np.fill_diagonal(s, 0)
+    # np.fill_diagonal(s, 1)  # only fill the main diagonal with 0, is necessary?
+    # print("Diagonal fill: + \n")
+    print(s)
     run(seq)
