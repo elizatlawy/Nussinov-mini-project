@@ -3,7 +3,7 @@ import re
 
 
 def seq_valid(seq):
-    return (bool(re.match("^[AUGC]+$", seq)))
+    return bool(re.match("^[AUGC]+$", seq))
 
 
 def is_base_pair(i, j):
@@ -11,20 +11,17 @@ def is_base_pair(i, j):
     returns 1 if i,j are base pairs, 0 otherwise
     """
     pair = [seq[i], seq[j]]
-    if pair == ['A', 'U'] or pair == ['U', 'A']:
-        return 1
-    elif pair == ['C', 'G'] or pair == ['G', 'C']:
+    if pair == ['A', 'U'] or pair == ['U', 'A'] or pair == ['C', 'G'] or pair == ['G', 'C']:
         return 1
     else:
         return 0
-
 
 def score(seq, N):
     """
     score the DP matrix according to the OPT formula
     """
-    # init
     L = len(seq)
+    # fill matrix with zeros
     matrix = np.zeros((L, L))
     # np.fill_diagonal(matrix, 0) # necessary?
     # fil the DP matrix
