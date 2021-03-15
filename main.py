@@ -73,10 +73,7 @@ def traceback(matrix, seq, i, j, pairs):
     return pairs
 
 
-def run(seq):
-    matrix = score(seq, len(seq))
-    pairs = traceback(matrix, seq, 0, len(seq) - 1, [])
-    # print results
+def print_results(pairs, matrix):
     print("Results for sequence: \n" + seq)
     parenthesis_list = ['.'] * len(seq)
     # print Matrix
@@ -90,14 +87,17 @@ def run(seq):
         parenthesis_list[pair[0]] = '('
         parenthesis_list[pair[1]] = ')'
     print()
+    # print Parenthesis representation of matching pairs
     print("Parenthesis representation of matching pairs:")
     parenthesis_str = ""
     print(seq)
     print(parenthesis_str.join(parenthesis_list))
 
 
-
-
+def run(seq):
+    matrix = score(seq, len(seq))
+    pairs = traceback(matrix, seq, 0, len(seq) - 1, [])
+    print_results(pairs, matrix)
 
 
 if __name__ == '__main__':
@@ -108,4 +108,3 @@ if __name__ == '__main__':
     #     run(seq)
     # else:
     #     print("The RNA sequence must contain only A, U, G, C bases")
-
