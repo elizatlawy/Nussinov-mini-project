@@ -48,7 +48,7 @@ def score(seq, N):
 
 
 def traceback(matrix, seq, i, j, pairs):
-    if i < j:
+    if i < j:  # main diagonal not reached
         if matrix[i, j] == matrix[i + 1, j - 1] + is_base_pair(i, j):
             # add the pair (i,j) to our list of pairs
             pairs.append([i, j, str(seq[i]), str(seq[j])])
@@ -98,7 +98,7 @@ def run(seq):
 
 
 if __name__ == '__main__':
-    seq = "GGGAAAUCC"
+    seq = "GGCAGUACCAAGUCGCGAAAGCGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGCC"
     run(seq)
     # seq = input("Enter an RNA sequence consisting of A, U, G, C bases only & Press ENTER:\n")
     # if seq_valid(seq):
